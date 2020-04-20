@@ -3,11 +3,13 @@ package com.example.test.repository;
 import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.Item;
 import com.example.test.model.entity.User;
+import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -18,31 +20,36 @@ public class UserRepositoryTest extends TestApplicationTests {
 
     @Test
     public void create(){
+        String account = "test01";
+        String password = "test01";
+        String status = "REGISTERED";
+        String email = "shlee0882@gmail.com";
+        String phoneNumber = "010-2013-0882";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
+
         User user = new User();
-        user.setAccount("user1");
-        user.setEmail("user1@gmail.com");
-        user.setPhoneNumber("010-1111-2222");
-        user.setRegDt(LocalDateTime.now());
-        user.setRegUser("shlee0882");
+
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
 
         User newUser = userRepository.save(user);
-        System.out.println(newUser);
+        Assert.assertNotNull(newUser);
     }
 
     @Test
     @Transactional
     public void read(){
-        // select * from user where id = ?
-        // Optional<User> user = userRepository.findById(2L);
-        Optional<User> user = userRepository.findByAccount("user2");
-
-        user.ifPresent(selectUser ->{
-            System.out.println("user: "+selectUser);
-            selectUser.getOrderDetailList().stream().forEach(detail->{
-                Item item= detail.getItem();
-                System.out.println(item);
-            });
-        });
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-2013-0882");
+        System.out.println(user);
+        Assert.assertNotNull(user);
     }
 
     @Test
@@ -53,8 +60,8 @@ public class UserRepositoryTest extends TestApplicationTests {
         user.ifPresent(selectUser ->{
             selectUser.setAccount("modUser1");
             selectUser.setEmail("modUser1@gmail.com");
-            selectUser.setModDt(LocalDateTime.now());
-            selectUser.setModUser("shlee0882");
+            selectUser.setUpdatedAt(LocalDateTime.now());
+            selectUser.setUpdatedBy("shlee0882");
             User newUser = userRepository.save(selectUser);
             System.out.println("user: "+newUser);
         });

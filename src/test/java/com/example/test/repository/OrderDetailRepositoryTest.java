@@ -4,10 +4,12 @@ import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.Item;
 import com.example.test.model.entity.OrderDetail;
 import com.example.test.model.entity.User;
+import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class OrderDetailRepositoryTest extends TestApplicationTests {
@@ -19,19 +21,16 @@ public class OrderDetailRepositoryTest extends TestApplicationTests {
     public void create(){
         OrderDetail orderDetail= new OrderDetail();
 
-        orderDetail.setOrderDt(LocalDateTime.now());
+        orderDetail.setStatus("WAITING");
+        orderDetail.setArrivalDate(LocalDateTime.now().plusDays(2));
+        orderDetail.setQuantity(1);
+        orderDetail.setTotalPrice(BigDecimal.valueOf(1000000));
 
-        // orderDetail.setUserId(2L);
-        // orderDetail.setItemId(1L);
+        orderDetail.setOrderGroupId(1L);    // 어떠한 장바구니에
+        orderDetail.setItemId(1L);              // 어떠한 상품
 
-        User user = new User();
-        Item item = new Item();
-
-        user.setId(2L);
-        item.setId(3L);
-
-        orderDetail.setUser(user);
-        orderDetail.setItem(item);
+        orderDetail.setCreatedAt(LocalDateTime.now());
+        orderDetail.setCreatedBy("AdminServer");
 
         OrderDetail newOrderDetail = orderDetailRepository.save(orderDetail);
 

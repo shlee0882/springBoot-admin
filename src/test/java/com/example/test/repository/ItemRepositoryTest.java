@@ -2,10 +2,12 @@ package com.example.test.repository;
 
 import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.Item;
+import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class ItemRepositoryTest extends TestApplicationTests {
@@ -16,11 +18,18 @@ public class ItemRepositoryTest extends TestApplicationTests {
     @Test
     public void create(){
         Item item = new Item();
-        item.setName("노트북");
-        item.setPrice(100000);
-        item.setContent("삼성 노트북");
+        item.setStatus("UNREGISTERED");
+        item.setName("삼성 노트북");
+        item.setTitle("삼성 울트라 15인치");
+        item.setContent("2020년형 노트북입니다.");
+        item.setPrice(10000000);
+        item.setBrandName("삼성");
+        item.setRegisteredAt(LocalDateTime.now());
+        item.setCreatedAt(LocalDateTime.now());
+        item.setCreatedBy("partner01");
+        item.setPartnerId(1L);
 
-        Item newItem = itemRepository.save(item);
+        Item newItem =  itemRepository.save(item);
         Assert.assertNotNull(newItem);
     }
 
