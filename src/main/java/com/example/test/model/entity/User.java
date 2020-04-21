@@ -26,7 +26,7 @@ public class User {
     private Long id;
     private String account;
 
-    private int temp;
+    // private int temp;
 
     private String password;
     private String status;
