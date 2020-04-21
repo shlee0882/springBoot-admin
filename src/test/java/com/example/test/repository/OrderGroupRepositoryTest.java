@@ -2,6 +2,7 @@ package com.example.test.repository;
 
 import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.OrderGroup;
+import com.example.test.model.entity.User;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,6 +30,9 @@ public class OrderGroupRepositoryTest extends TestApplicationTests {
 
         orderGroup.setCreatedAt(LocalDateTime.now());
         orderGroup.setCreatedBy("AdminServer");
+        User newUser = new User();
+        newUser.setId(1L);
+        orderGroup.setUser(newUser);
         // orderGroup.setUserId(1L);
 
         OrderGroup newOrderGroup = orderGroupRepository.save(orderGroup);

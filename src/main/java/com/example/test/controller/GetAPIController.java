@@ -1,5 +1,6 @@
 package com.example.test.controller;
 import com.example.test.model.SearchVO;
+import com.example.test.model.network.Header;
 import org.springframework.web.bind.annotation.*;
 
 @RestController // 여기는 컨트롤러라고 알려주는 @RestController 어노테이션 사용
@@ -28,4 +29,10 @@ public class GetAPIController {
         return searchVo;
     }
 
+    @GetMapping("/header")
+    public Header getHeader(){
+
+        // {"resultCode: "OK", "description" : "OK"}
+        return Header.builder().resultCode("OK").description("OK").build();
+    }
 }

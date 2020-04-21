@@ -3,6 +3,7 @@ package com.example.test.repository;
 import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.Item;
 import com.example.test.model.entity.OrderDetail;
+import com.example.test.model.entity.OrderGroup;
 import com.example.test.model.entity.User;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
@@ -28,6 +29,15 @@ public class OrderDetailRepositoryTest extends TestApplicationTests {
 
         // orderDetail.setOrderGroupId(1L);    // 어떠한 장바구니에
         // orderDetail.setItemId(1L);              // 어떠한 상품
+
+        OrderGroup newOrderGroup = new OrderGroup();
+        newOrderGroup.setId(1L);
+
+        Item newItem = new Item();
+        newItem.setId(1L);
+
+        orderDetail.setOrderGroup(newOrderGroup);
+        orderDetail.setItem(newItem);
 
         orderDetail.setCreatedAt(LocalDateTime.now());
         orderDetail.setCreatedBy("AdminServer");
