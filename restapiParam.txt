@@ -1,0 +1,19 @@
+
+-- GET DATA --
+-- http://localhost:8080/api/user/1 --
+
+-- POST DATA --
+-- http://localhost:8080/api/user/ --
+
+{
+  "transaction_time" : "2020-04-21T17:21:49.77",
+  "result_code" : "OK",
+  "description" : "OK",
+  "data" : {
+    "account" : "createTest02",
+    "password" : "createTest02",
+    "status" : "REGISTERED",
+    "email" : "shlee0882@gmail.com",
+    "phone_number" : "010-2013-0882"
+  }
+}
