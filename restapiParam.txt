@@ -17,3 +17,23 @@
     "phone_number" : "010-2013-0882"
   }
 }
+
+
+-- PUT DATA --
+-- http://localhost:8080/api/user --
+
+{
+"transaction_time": "2020-04-22T22:31:12.86",
+"result_code": "OK",
+"description": "OK",
+"data":{
+    "id": 1,
+    "account": "test02",
+    "password": "test02",
+    "status": "UNREGISTERED",
+    "email": "shlee0882@gmail.com",
+    "phone_number": "010-2019-0882",
+    "registered_at": "2020-04-22T22:27:40",
+    "unregistered_at": "2020-04-23T22:27:40"
+}
+}
