@@ -37,3 +37,51 @@
     "unregistered_at": "2020-04-23T22:27:40"
 }
 }
+
+-- DELETE DATA --
+-- http://localhost:8080/api/user/1 --
+
+-- GET DATA --
+-- http://localhost:8080/api/item/1 --
+
+-- POST DATA --
+-- http://localhost:8080/api/item --
+
+{
+	"transaction_time": "2020-04-24T14:58:12.86",
+	"result_code": "OK",
+	"description": "OK",
+	"data":{
+		"status": "REGISTERED",
+		"name": "삼성노트북 S10",
+		"title": "울트라북",
+		"content": "2020년 노트북",
+		"price": 980000,
+		"brand_name": "전자가전",
+		"partner_id" : 1
+	}
+}
+
+-- PUT DATA --
+-- http://localhost:8080/api/item --
+
+{
+"transaction_time": "2020-04-24T15:37:48.95",
+"result_code": "OK",
+"description": "OK",
+"data":{
+"id": 2,
+"status": "REGISTERED",
+"name": "삼성노트북 A10",
+"title": "울트라북",
+"content": "2021년 노트북",
+"price": 970000.0000,
+"brand_name": "전자가전",
+"registered_at": "2020-04-24T15:16:30.914",
+"unregistered_at": null,
+"partner_id": 1
+}
+}
+
+-- DELETE DATA --
+-- http://localhost:8080/api/item/1 --

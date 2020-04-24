@@ -8,12 +8,14 @@ import com.example.test.model.network.request.ItemApiRequest;
 import com.example.test.model.network.response.ItemApiResponse;
 import com.example.test.repository.ItemRepository;
 import com.example.test.repository.PartnerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@Slf4j
 public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemApiResponse> {
 
     @Autowired
@@ -25,7 +27,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
     @Override
     public Header<ItemApiResponse> create(Header<ItemApiRequest> request){
         ItemApiRequest body = request.getData();
-
+        log.info("{}",body);
         Item item = Item.builder()
                 .status(body.getStatus())
                 .name(body.getName())
@@ -43,17 +45,44 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
 
     @Override
     public Header<ItemApiResponse> read(Long id) {
-        return null;
+        return itemRepository.findById(id)
+                .map(item -> response(item))
+                .orElseGet(
+                        () -> Header.ERROR("데이터 없음"));
     }
 
     @Override
     public Header<ItemApiResponse> update(Header<ItemApiRequest> request) {
-        return null;
+        ItemApiRequest body = request.getData();
+        log.info("바디 : {}", body);
+        return itemRepository.findById(body.getId())
+                .map(entityItem ->{
+                    entityItem.setStatus(body.getStatus())
+                            .setName(body.getName())
+                            .setTitle(body.getTitle())
+                            .setContent(body.getContent())
+                            .setPrice(body.getPrice())
+                            .setBrandName(body.getBrandName())
+                            .setRegisteredAt(body.getRegisteredAt())
+                            .setUnregisteredAt(body.getUnregisteredAt());
+                    return entityItem;
+                })
+                .map(newEntityItem -> {
+                    itemRepository.save(newEntityItem);
+                    return newEntityItem;
+                })
+                .map(item -> response(item))
+                .orElseGet(()->Header.ERROR("데이터 없음"));
     }
 
     @Override
     public Header delete(Long id) {
-        return null;
+        return itemRepository.findById(id)
+                .map(item -> {
+                    itemRepository.delete(item);
+                    return Header.OK();
+                })
+                .orElseGet(()->Header.ERROR("데이터 없음"));
     }
 
     private Header<ItemApiResponse> response(Item item){

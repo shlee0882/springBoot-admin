@@ -1,6 +1,7 @@
 package com.example.test.repository;
 
 import com.example.test.TestApplicationTests;
+import com.example.test.model.entity.Category;
 import com.example.test.model.entity.Partner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -39,6 +40,10 @@ public class PartnerRepositoryTest extends TestApplicationTests {
         partner.setCreatedAt(createdAt);
         partner.setCreatedBy(createdBy);
         // partner.setCategoryId(categoryId);
+
+        Category newCategory = new Category();
+        newCategory.setId(categoryId);
+        partner.setCategory(newCategory);
 
         Partner newPartner =  partnerRepository.save(partner);
         Assert.assertNotNull(newPartner);
