@@ -3,6 +3,7 @@ package com.example.test.repository;
 import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.Item;
 import com.example.test.model.entity.User;
+import com.example.test.model.enumclass.UserStatus;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class UserRepositoryTest extends TestApplicationTests {
 
         user.setAccount(account);
         user.setPassword(password);
-        user.setStatus(status);
+        user.setStatus(UserStatus.REGISTERED);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);
@@ -41,7 +42,7 @@ public class UserRepositoryTest extends TestApplicationTests {
         User u = User.builder()
                 .account(account)
                 .password(password)
-                .status(status)
+                .status(UserStatus.REGISTERED)
                 .email(email)
                 .build();
 

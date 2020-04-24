@@ -3,6 +3,7 @@ package com.example.test.repository;
 import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.Item;
 import com.example.test.model.entity.Partner;
+import com.example.test.model.enumclass.ItemStatus;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class ItemRepositoryTest extends TestApplicationTests {
     @Test
     public void create(){
         Item item = new Item();
-        item.setStatus("UNREGISTERED");
+        item.setStatus(ItemStatus.UNREGISTERED);
         item.setName("삼성 노트북");
         item.setTitle("삼성 울트라 15인치");
         item.setContent("2020년형 노트북입니다.");

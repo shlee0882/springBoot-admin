@@ -3,6 +3,7 @@ package com.example.test.repository;
 import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.OrderGroup;
 import com.example.test.model.entity.User;
+import com.example.test.model.enumclass.OrderType;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,10 +20,9 @@ public class OrderGroupRepositoryTest extends TestApplicationTests {
     public void create(){
         OrderGroup orderGroup = new OrderGroup();
         orderGroup.setStatus("COMPLETE");
-        orderGroup.setOrderType("ALL");
+        orderGroup.setOrderType(OrderType.ALL);
         orderGroup.setRevAddress("서울시 강남구");
         orderGroup.setRevName("이상현");
-        orderGroup.setOrderType("CARD");
         orderGroup.setTotalPrice(BigDecimal.valueOf(1000000));
         orderGroup.setTotalQuantity(1);
         orderGroup.setOrderAt(LocalDateTime.now().minusDays(2));
