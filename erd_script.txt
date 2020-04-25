@@ -219,3 +219,27 @@ ALTER TABLE study.user AUTO_INCREMENT=1;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+------------------- 초기화 --------------------
+
+
+-- FOREIGN_KEY_CHECKS OFF
+SET FOREIGN_KEY_CHECKS = 0;
+
+truncate TABLE admin_user;
+truncate TABLE category;
+truncate TABLE item;
+truncate TABLE order_detail;
+truncate TABLE order_group;
+truncate TABLE partner;
+truncate TABLE user;
+
+-- FOREIGN_KEY_CHECKS ON
+SET FOREIGN_KEY_CHECKS = 1;
+
+------------------------------------------------
+
+CategorySample
+PartnerSample
+ItemSample
+UserSample
