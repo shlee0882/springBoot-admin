@@ -238,8 +238,3 @@ truncate TABLE user;
 SET FOREIGN_KEY_CHECKS = 1;
 
 ------------------------------------------------
-
-CategorySample
-PartnerSample
-ItemSample
-UserSample
