@@ -3,6 +3,9 @@
 
 ![diagram](/diagram1.PNG)
 
+- springboot, gradle, jpa, mysql, thymeleaf, lombok 사용
+- crud api 구현
+
 ### 2. 사용 및 실행방법
 
 - MySQL 설치
