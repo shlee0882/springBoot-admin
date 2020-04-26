@@ -10,11 +10,13 @@ import com.example.test.repository.OrderGroupRepository;
 import com.example.test.repository.UserRepository;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -84,6 +86,11 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
                     return Header.OK();
                 })
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
+    }
+
+    @Override
+    public Header<List<OrderGroupApiResponse>> search(Pageable pageable) {
+        return null;
     }
 
     public Header<OrderGroupApiResponse> response(OrderGroup orderGroup){

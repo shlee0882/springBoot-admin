@@ -170,7 +170,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
                     // item api reponse 오더그룹에 해당하는 아이템을 찾고
                     List<ItemApiResponse> itemApiResponseList = orderGroup.getOrderDetailList().stream()
                             .map(detail -> detail.getItem())
-                            .map(item -> itemApiLogicService.response(item).getData())
+                            .map(item -> itemApiLogicService.response(item))
                             .collect(Collectors.toList());
 
                     orderGroupApiResponse.setItemApiResponseList(itemApiResponseList);
