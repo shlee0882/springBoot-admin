@@ -116,7 +116,9 @@
                                             <tbody id="itemList">
                                             <tr role="row" class="odd" v-for="dto in itemList">
                                                 <td class="text-center">{{dto.id}}</td>
-                                                <td class="text-center">{{dto.account}}</td>
+                                                <td class="text-center">
+                                                    <a href="javascript:;" v-on:click="orderDetail(dto.id)">{{dto.account}}</a>
+                                                </td>
                                                 <td class="text-center">{{dto.status}}</td>
                                                 <td class="text-center">{{dto.email}}</td>
                                                 <td class="text-center">{{dto.phone_number}}</td>
@@ -175,5 +177,14 @@
 
 
 <script src="/app/user.js"></script>
+
+<script>
+    var orderDetail = (index) => {
+        console.log(index);
+        $.get("/api/user/"+index+"/orderInfo", function (response) {
+            console.log(response.data);
+        });
+    }
+</script>
 </body>
 </html>
