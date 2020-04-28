@@ -161,6 +161,13 @@
 
         </section>
     </div>
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="accountDetail"><</div>
+        </div>
+    </div>
     <!-- Content End -->
 
     <!-- Footer Start -->
@@ -179,12 +186,44 @@
 <script src="/app/user.js"></script>
 
 <script>
+
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    var accountDetail = document.getElementById("accountDetail");
+
     var orderDetail = (index) => {
         console.log(index);
         $.get("/api/user/"+index+"/orderInfo", function (response) {
-            console.log(response.data);
+            var res = response.data.user_api_response;
+            console.log(res);
+            var htmlString = "아이디 : "+res.id+"<br>"+"계정 : "+res.account+"<br>"+ "이메일: "+ res.email + "<br><br><br>";
+            htmlString += "주문내역 : " + "<br>";
+            htmlString += "----------------------------------------"+"<br>";
+            $.each(res.order_group_api_response_list, function(index, item){ // 주문리스트
+                htmlString += "주문 상태 : "+item.status+"<br>"+"주소지 : "+item.rev_address+"<br>"+ "주문타입 : "+ item.order_type + "<br>" + "지불타입 : "+ item.payment_type + "<br>";
+                htmlString += "----------------------------------------"+"<br>";
+                if((item.item_api_response_list).length > 0){ // 주문아이템
+                    $.each(item.item_api_response_list, function(index, item){
+                        // htmlString += "상품브랜드 : "+item.brand_name+"<br>"+"상품명 : "+item.name+"<br>"+ "상품가격 : "+ item.price + "<br>" + "상품설명 : "+ item.content + "<br>";
+                    });
+                }
+            });
+            accountDetail.innerHTML = htmlString;
+            modal.style.display = "block";
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
         });
     }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
 </script>
 </body>
 </html>
