@@ -166,6 +166,14 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div id="accountDetail"><</div>
+            <table style="width: 100%;">
+                <tr id="orderDtId">
+                    <th>주문상태</th>
+                    <th>주소지</th>
+                    <th>주문타입</th>
+                    <th>지불타입</th>
+                </tr>
+            </table>
         </div>
     </div>
     <!-- Content End -->
@@ -190,6 +198,7 @@
     var modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close")[0];
     var accountDetail = document.getElementById("accountDetail");
+    var orderDtId = document.getElementById("accountDetail");
 
     var orderDetail = (index) => {
         console.log(index);
@@ -200,8 +209,7 @@
             htmlString += "주문내역 : " + "<br>";
             htmlString += "----------------------------------------"+"<br>";
             $.each(res.order_group_api_response_list, function(index, item){ // 주문리스트
-                htmlString += "주문 상태 : "+item.status+"<br>"+"주소지 : "+item.rev_address+"<br>"+ "주문타입 : "+ item.order_type + "<br>" + "지불타입 : "+ item.payment_type + "<br>";
-                htmlString += "----------------------------------------"+"<br>";
+                $("#orderDtId").after("<tr>"+"<td>"+item.status+"</td>"+"<td>"+item.rev_address+"</td>"+"<td>"+ item.order_type + "</td>"+"<td>"+ item.payment_type + "</td>"+"</tr>")
                 if((item.item_api_response_list).length > 0){ // 주문아이템
                     $.each(item.item_api_response_list, function(index, item){
                         // htmlString += "상품브랜드 : "+item.brand_name+"<br>"+"상품명 : "+item.name+"<br>"+ "상품가격 : "+ item.price + "<br>" + "상품설명 : "+ item.content + "<br>";
@@ -210,10 +218,11 @@
             });
             accountDetail.innerHTML = htmlString;
             modal.style.display = "block";
-
+            $("#pageBtn").css("display","none");
             // When the user clicks on <span> (x), close the modal
             span.onclick = function() {
                 modal.style.display = "none";
+                $("#pageBtn").css("display","none");
             }
         });
     }
@@ -221,6 +230,7 @@
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+            $("#pageBtn").css("display","none");
         }
     }
 
