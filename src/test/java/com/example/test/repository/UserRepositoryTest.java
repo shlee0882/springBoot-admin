@@ -21,9 +21,9 @@ public class UserRepositoryTest extends TestApplicationTests {
 
     @Test
     public void create(){
-        String account = "test02";
-        String password = "test02";
-        String status = "REGISTERED";
+        String account = "test01";
+        String password = "test01";
+        String status = "UNREGISTERED";
         String email = "shlee0882@gmail.com";
         String phoneNumber = "010-2013-0882";
         LocalDateTime registeredAt = LocalDateTime.now();
@@ -44,11 +44,12 @@ public class UserRepositoryTest extends TestApplicationTests {
                 .password(password)
                 .status(UserStatus.REGISTERED)
                 .email(email)
+                .phoneNumber(phoneNumber)
                 .build();
 
 
 
-        User newUser = userRepository.save(user);
+        User newUser = userRepository.save(u);
         Assert.assertNotNull(newUser);
     }
 
