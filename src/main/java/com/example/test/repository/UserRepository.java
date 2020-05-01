@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
     // 1건에 대해서 가장 최근것이 리턴됨.
     User findFirstByPhoneNumberOrderByIdDesc(String phoneNumber);
+    User findFirstById(Long id);
 }

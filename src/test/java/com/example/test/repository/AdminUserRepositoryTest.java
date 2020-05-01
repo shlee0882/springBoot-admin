@@ -55,6 +55,7 @@ public class AdminUserRepositoryTest extends TestApplicationTests {
 
         AdminUser newAdminUser = adminUserRepository.save(adminUser);
         Assert.assertNotNull(newAdminUser);
+        Assert.assertEquals(newAdminUser.getAccount(), account);
     }
 
     @Test
@@ -95,7 +96,7 @@ public class AdminUserRepositoryTest extends TestApplicationTests {
         List<String> statusList = new ArrayList<String>(Arrays.asList("REGISTERED", "UNREGISTERED"));
 
         // where account in ('CHANGE', 'NEW') and status in ('REGISTERED', 'UNREGISTERED')
-        List<AdminUser> optionalAdminUser = adminUserRepository.findByAccountInAndStatusInOrderById(accountList, statusList);
+        List<AdminUser> optionalAdminUser = adminUserRepository.findByAccountInAndStatusInOrderByIdDesc(accountList, statusList);
         log.info("{}",optionalAdminUser);
         Assert.assertNotNull(optionalAdminUser);
     }

@@ -4,6 +4,7 @@ import com.example.test.TestApplicationTests;
 import com.example.test.model.entity.Item;
 import com.example.test.model.entity.Partner;
 import com.example.test.model.enumclass.ItemStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class ItemRepositoryTest extends TestApplicationTests {
 
     @Autowired
@@ -64,10 +67,9 @@ public class ItemRepositoryTest extends TestApplicationTests {
 
     @Test
     public void read(){
-        Long id = 1L;
-
-        Optional<Item> item = itemRepository.findById(id);
-
-        Assert.assertTrue(item.isPresent());
+        List<Item> itemList =  itemRepository.findAll();
+        for (Item item: itemList) {
+            log.info("{}",item);
+        }
     }
 }
