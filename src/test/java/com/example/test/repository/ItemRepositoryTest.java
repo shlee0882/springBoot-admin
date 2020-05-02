@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.swing.text.html.Option;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,45 +25,24 @@ public class ItemRepositoryTest extends TestApplicationTests {
 
     @Test
     public void create(){
-        Item item = new Item();
-        item.setStatus(ItemStatus.UNREGISTERED);
-        item.setName("삼성 노트북");
-        item.setTitle("삼성 울트라 15인치");
-        item.setContent("2020년형 노트북입니다.");
-        item.setPrice(BigDecimal.valueOf(1000000));
-        item.setBrandName("삼성");
-        item.setRegisteredAt(LocalDateTime.now());
-        item.setCreatedAt(LocalDateTime.now());
-        item.setCreatedBy("partner01");
 
         Partner newPartner = new Partner();
-
         newPartner.setId(1L);
-        item.setPartner(newPartner);
+
+        Item item = Item.builder()
+                .status(ItemStatus.UNREGISTERED)
+                .name("삼성 노트북")
+                .title("삼성 울트라 15인치")
+                .content("2020년형 노트북입니다.")
+                .price(BigDecimal.valueOf(1000000))
+                .brandName("삼성")
+                .registeredAt(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
+                .createdBy("partner01")
+                .partner(newPartner)
+                .build();
 
         Item newItem =  itemRepository.save(item);
-        Assert.assertNotNull(newItem);
-    }
-
-    @Test
-    public void create2(){
-        Item item = new Item();
-        item.setName("냉장고");
-        item.setPrice(BigDecimal.valueOf(700000));
-        item.setContent("LG 냉장고");
-
-        Item newItem = itemRepository.save(item);
-        Assert.assertNotNull(newItem);
-    }
-
-    @Test
-    public void create3(){
-        Item item = new Item();
-        item.setName("세탁기");
-        item.setPrice(BigDecimal.valueOf(500000));
-        item.setContent("트롬 세탁기");
-
-        Item newItem = itemRepository.save(item);
         Assert.assertNotNull(newItem);
     }
 
@@ -71,5 +52,32 @@ public class ItemRepositoryTest extends TestApplicationTests {
         for (Item item: itemList) {
             log.info("{}",item);
         }
+    }
+
+    @Test
+    @Transactional
+    public void updateItem(){
+        Optional<Item> item = itemRepository.findById(1L);
+        log.info("변경 전 상태 : {}", item);
+        item.ifPresent(i->{
+            i.setStatus(ItemStatus.REGISTERED);
+            Item updateItem = itemRepository.save(i);
+            Assert.assertEquals(i.getStatus(), updateItem.getStatus());
+            log.info("변경 후 상태 : {}", updateItem);
+        });
+    }
+
+    @Test
+    @Transactional
+    public void deleteItem(){
+        Optional<Item> item = itemRepository.findById(1L);
+        log.info("데이터 : {}", item);
+        item.ifPresent(i ->{
+            itemRepository.delete(i);
+        });
+        Optional<Item> checkItem = itemRepository.findById(1L);
+        Assert.assertFalse(checkItem.isPresent());
+        log.info("삭제 되었는지 체크 : {}", checkItem);
+
     }
 }

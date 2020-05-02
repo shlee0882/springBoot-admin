@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.*;
@@ -101,6 +102,31 @@ public class AdminUserRepositoryTest extends TestApplicationTests {
         Assert.assertNotNull(optionalAdminUser);
     }
 
+    @Test
+    @Transactional
+    public void updateAdminUser(){
+        Optional<AdminUser> adminUser = adminUserRepository.findById(1L);
+        log.info("변경 전 상태 : {}", adminUser);
+        adminUser.ifPresent(u -> {
+            u.setStatus("UNREGISTERED");
+            AdminUser newAdminUser = adminUserRepository.save(u);
+            log.info("변경 후 상태 : {}", newAdminUser);
+            Assert.assertEquals(u.getStatus(), newAdminUser.getStatus());
+        });
+    }
 
+    @Test
+    @Transactional
+    public void deleteAdminUser(){
+        Optional<AdminUser> adminUser = adminUserRepository.findById(1L);
+        log.info("{}", adminUser);
+        adminUser.ifPresent(a -> {
+            adminUserRepository.delete(a);
+        });
+
+        Optional<AdminUser> checkAdminUser = adminUserRepository.findById(1L);
+        Assert.assertFalse(checkAdminUser.isPresent());
+        log.info("{}", checkAdminUser);
+    }
 
 }

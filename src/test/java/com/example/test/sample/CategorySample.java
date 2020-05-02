@@ -29,8 +29,6 @@ public class CategorySample extends TestApplicationTests {
             Category create = Category.builder().type(c).title(t).build();
             categoryRepository.save(create);
         }
-
-
     }
 
 }
